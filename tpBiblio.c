@@ -24,9 +24,8 @@ printf("\n 10 - trier les livres (par annee)");
 
 // si les 5 choix (6-10) sont bien codés, changez le type T_Emp et remplacez-le par la structure T_Emp visible dans livre.h
 // vous pourrez alors faire les menus 11,12,etc...
-// printf("\n 11- lister les livres disponibles "); 
-// printf("\n 12 - lister les emprunts en retard "); //on suppose qu'un emprunt dure 7 jours.
-// printf("\n 13 - ... imaginez vous même vos propres fonctionnalités ")
+printf("\n 11- lister les livres disponibles "); 
+printf("\n 12 - lister les emprunts en retard "); //on suppose qu'un emprunt dure 7 jours.
 
 printf("\n 0 - QUITTER");
 printf("\n Votre choix : ");
@@ -44,8 +43,9 @@ int main()
 {
 
 int reponse,chx;
-char auteur;
-char titre;
+T_Aut auteur;
+T_Titre titre;
+char nomemprunteur[K_MaxEmp];
 T_Bibliotheque B; 
 init( &B );
 chargement(&B);
@@ -68,8 +68,8 @@ switch(chx)
 	
 	case 3 : 
 		printf("Donner le titre du livre a rechercher : ");
-		lire(&titre,MAX_TITRE);
-			reponse = rechercherLivre(&B,&titre);
+		lire(titre,MAX_TITRE);
+			reponse = rechercherLivre(&B,titre);
 			if (reponse!=0)
 				printf("\nRecherche réussie,le titre a été trouvé %d fois",reponse);
 				else
@@ -78,8 +78,8 @@ switch(chx)
 	
 	case 4 :
 		printf("Donnez le nom de l'auteur à rechercher : \n");
-		lire(&auteur,K_MaxAut);
-			reponse = rechercherLivreParAuteur(&B,&auteur);
+		lire(auteur,K_MaxAut);
+			reponse = rechercherLivreParAuteur(&B,auteur);
 			if (reponse==1)
 				printf("\nRecherche réussie, l'auteur a été trouvé\n");
 				else
@@ -88,9 +88,9 @@ switch(chx)
 
 	case 5 :
 		printf("donnez le nom du titre du livre à supprimer \n");
-		lire(&titre,MAX_TITRE);
-		printf("%s",&titre);
-			reponse = SupprimerUnLivre(&B,&titre);
+		lire(titre,MAX_TITRE);
+		printf("%s",titre);
+			reponse = SupprimerUnLivre(&B,titre);
 			if (reponse==1)
 				printf("\nSuppression réussie,le livre a été supprimé\n");
 				else
@@ -98,16 +98,55 @@ switch(chx)
 		break;
 
 	case 6 :
-		printf("donnez le nom du titre du livre à emprunter \n");
-		lire(&titre,MAX_TITRE);
-		printf("Quel est votre nom");
-		lire(&auteur,K_MaxEmp);
-			reponse = emprunterUnLivre(&B,&titre,&auteur);
-			if (reponse==1)
+		lireChaine("Donnez le nom du titre du livre à emprunter :",titre,MAX_TITRE);
+		lireChaine("Quel est votre nom :",nomemprunteur,K_MaxEmp);
+			reponse = emprunterUnLivre(&B,titre,nomemprunteur);
+			if (reponse==1){
 				printf("\nEmprunt réussie,le livre a été emprunté\n");
+			}
 				else
 				printf("\nEmprunt échouée,le livre n'a pas été emprunté\n");
 		break;
+
+	case 7 :
+		lireChaine("Donnez le nom du titre du livre à rendre :",titre,MAX_TITRE);		
+			reponse = restituerUnLivre(&B,titre);
+			if (reponse==1)
+				printf("\nRendu réussie,le livre a été rendu\n");
+				else
+				printf("\nRendu échouée,le livre n'a pas été rendu\n");
+		break;
+
+	case 8 :
+		trititre(&B);
+		printf("Tri par titre réussi\n");
+		printf("Voici la liste des livres triés par titre\n");
+		afficherBibliotheque(&B);
+		break;
+
+	case 9 :
+		triauteur(&B);
+		printf("Tri par auteur réussi\n");
+		printf("Voici la liste des livres triés par auteur\n");
+		afficherBibliotheque(&B);
+		break;
+
+	case 10 :
+		triannee(&B);
+		printf("Tri par annee réussi\n");
+		printf("Voici la liste des livres triés par annee\n");
+		afficherBibliotheque(&B);
+		break;
+
+	case 11 :
+	printf("Livre disponible : \n");
+		listerlivredispo(&B);
+		break;
+
+	case 12 :
+	listerretard(&B);
+		break;
+
 	}
 	chx= menu();
 }

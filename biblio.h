@@ -28,6 +28,14 @@ int SupprimerUnLivre(T_Bibliotheque  *ptrB, char *livre);
 void sauvegarde(T_Bibliotheque *ptrB);
 void chargement(T_Bibliotheque *ptrB);
 void lectureFichierTXT();
-int emprunterUnLivre(T_Bibliotheque *ptrB, char *titre, char *emprunteur);
+int emprunterUnLivre(T_Bibliotheque *ptrB, char *titre,char *nomemprunteur);
+int restituerUnLivre(T_Bibliotheque *ptrB, char *titre);
+void trititre(T_Bibliotheque *ptrB);
+void triauteur(T_Bibliotheque *ptrB);
+void triannee(T_Bibliotheque *ptrB);
+void listerlivredispo(T_Bibliotheque *ptrB);
+void listerretard(T_Bibliotheque *ptrB);
+
+
 
 #endif

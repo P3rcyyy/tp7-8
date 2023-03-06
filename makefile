@@ -11,3 +11,5 @@ livre.o : livre.c
 biblio.o : biblio.c
 	$(c) $(op) -c biblio.c	
 
+clean:
+	rm -f *.o exe

@@ -34,7 +34,7 @@ if (i==nbMAXcaracAsaisir)
 else //i<MAX
 if (lachaine[i-1]==' ')
 	lachaine[i-1]='\0';
-
+	
 return lachaine;
 }
 
